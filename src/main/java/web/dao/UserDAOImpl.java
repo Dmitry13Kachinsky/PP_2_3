@@ -34,13 +34,16 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void delete(User user) {
-        users.remove(user.getId());
+    public void delete(int id) {
+        users.removeIf(p -> p.getId() == id);
     }
 
     @Override
-    public void edit(User user) {
-        users.set(user.getId(), user);
+    public void edit(int id, User updatedUser) {
+        User userToBeUpdated = show(id);
+        userToBeUpdated.setName(updatedUser.getName());
+        userToBeUpdated.setSurname(updatedUser.getSurname());
+
     }
 
     @Override
