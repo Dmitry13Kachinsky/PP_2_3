@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<User> users(int count) {
-        return userDAO.users(count);
+    public List<User> users() {
+        return userDAO.users();
     }
 
     @Override

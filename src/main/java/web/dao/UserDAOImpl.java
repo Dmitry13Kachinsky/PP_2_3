@@ -9,29 +9,28 @@ import java.util.stream.Collectors;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
-
+    private static int PEOPLE_COUNT;
     private final List<User> users;
 
     {
         users = new ArrayList<>();
-        users.add(new User(0,"Bob", "Boba"));
-        users.add(new User(1,"Tom", "Goth"));
-        users.add(new User(2,"John", "Over"));
-        users.add(new User(3,"Bill", "Nick"));
-        users.add(new User(4,"Sam", "Dann"));
+        users.add(new User(++PEOPLE_COUNT, "Bob", "Boba"));
+        users.add(new User(++PEOPLE_COUNT, "Tom", "Goth"));
+        users.add(new User(++PEOPLE_COUNT, "John", "Over"));
+        users.add(new User(++PEOPLE_COUNT, "Bill", "Nick"));
+        users.add(new User(++PEOPLE_COUNT, "Sam", "Dann"));
 
     }
+
     @Override
-    public List<User> users(int count) {
-        if (count == 0) {
-            return users;
-        }
-        return users.stream().limit(count).collect(Collectors.toList());
+    public List<User> users() {
+        return users;
     }
 
     @Override
     public void add(User user) {
-        users.add(user.getId(), user);
+        user.setId(++PEOPLE_COUNT);
+        users.add(user);
     }
 
     @Override

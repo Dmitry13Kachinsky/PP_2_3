@@ -37,8 +37,9 @@
         </dependency>
 
     </dependencies>
-
+<!---->
     <build>
+<!---->
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -63,6 +64,7 @@
                 </configuration>
             </plugin>
         </plugins>
+<!---->
         <finalName>Spring_MVC</finalName>
     </build>
 
