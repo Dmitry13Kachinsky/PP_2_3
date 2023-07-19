@@ -14,11 +14,11 @@ public class UserDAOImpl implements UserDAO {
 
     {
         users = new ArrayList<>();
-        users.add(new User("Bob", "Boba"));
-        users.add(new User("Tom", "Goth"));
-        users.add(new User("John", "Over"));
-        users.add(new User("Bill", "Nick"));
-        users.add(new User("Sam", "Dann"));
+        users.add(new User(0,"Bob", "Boba"));
+        users.add(new User(1,"Tom", "Goth"));
+        users.add(new User(2,"John", "Over"));
+        users.add(new User(3,"Bill", "Nick"));
+        users.add(new User(4,"Sam", "Dann"));
 
     }
     @Override
@@ -42,5 +42,10 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void edit(User user) {
         users.set(user.getId(), user);
+    }
+
+    @Override
+    public User show(int id) {
+        return users.stream().filter(person -> person.getId() == id).findAny().orElse(null);
     }
 }

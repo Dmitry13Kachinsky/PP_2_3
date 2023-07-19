@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
     public void edit(User user) {
         userDAO.edit(user);
     }
+
+    @Override
+    public User show(int id) {
+        return userDAO.show(id);
+    }
 }
