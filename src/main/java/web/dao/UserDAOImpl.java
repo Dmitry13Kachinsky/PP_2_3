@@ -1,45 +1,47 @@
 package web.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
 @Repository
 public class UserDAOImpl implements UserDAO {
-    private final JdbcTemplate jdbcTemplate;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public UserDAOImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
+    @Transactional
     @Override
     public List<User> users() {
-        return jdbcTemplate.query("SELECT * FROM users", new BeanPropertyRowMapper<>(User.class));
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     @Override
     public void add(User user) {
-        jdbcTemplate.update("INSERT INTO users(name, surname) VALUES (?, ?)", user.getName(), user.getSurname());
+        entityManager.persist(user);
     }
 
     @Override
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM users WHERE id=?", id);
+        entityManager.remove(show(id));
     }
 
     @Override
-    public void edit(int id, User updatedUser) {
-        jdbcTemplate.update("UPDATE users SET name=?, surname=? WHERE id=?", updatedUser.getName(), updatedUser.getSurname(), id);
+    public void edit(int id, User user) {
+        User updated = entityManager.find(User.class, id);
+        updated.setId(user.getId());
+        updated.setName(user.getName());
+        updated.setSurname(user.getSurname());
+        entityManager.merge(updated);
     }
 
     @Override
     public User show(int id) {
-        return jdbcTemplate.query("SELECT * FROM users WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(User.class)).stream().findAny().orElse(null);
+        return entityManager.find(User.class, id);
     }
 }
