@@ -19,42 +19,42 @@ public class UsersController {
     }
 
     @GetMapping
-    public String showAll(Model model) {
+    public String showAllUsers(Model model) {
         model.addAttribute("users", userService.users());
         return "users/all_users";
     }
 
     @GetMapping("/{id}")
-    public String showEach(@PathVariable("id") int id, Model model) {
+    public String showEachUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.show(id));
         return "users/each";
     }
 
     @GetMapping("/new")
-    public String newUserForm(@ModelAttribute("user") User user) {
+    public String showNewUserForm(@ModelAttribute("user") User user) {
         return "users/new";
     }
 
     @PostMapping
-    public String create(@ModelAttribute("user") User user) {
+    public String createNewUser(@ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
-    public String updateForm(Model model, @PathVariable("id") int id) {
+    public String showUserUpdateForm(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.show(id));
         return "users/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") int id) {
         userService.edit(id, user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
+    public String deleteUser(@PathVariable("id") int id) {
         userService.delete(id);
         return "redirect:/users";
     }
