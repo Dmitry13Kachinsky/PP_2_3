@@ -19,7 +19,7 @@ public class UsersController {
     }
 
     @GetMapping
-    public String show(Model model) {
+    public String showAll(Model model) {
         model.addAttribute("users", userService.users());
         return "users/all_users";
     }
@@ -31,18 +31,18 @@ public class UsersController {
     }
 
     @GetMapping("/new")
-    public String create(@ModelAttribute("user") User user) {
+    public String createForm(@ModelAttribute("user") User user) {
         return "users/new";
     }
 
     @PostMapping
-    public String add(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String updateForm(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.show(id));
         return "users/edit";
     }
