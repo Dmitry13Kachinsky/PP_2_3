@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User show(int id) {
+    public User getUserBy(int id) {
         return userDAO.show(id);
     }
 }

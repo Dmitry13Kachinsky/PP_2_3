@@ -26,7 +26,7 @@ public class UsersController {
 
     @GetMapping("/{id}")
     public String showEachUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.show(id));
+        model.addAttribute("user", userService.getUserBy(id));
         return "users/each";
     }
 
@@ -43,7 +43,7 @@ public class UsersController {
 
     @GetMapping("/{id}/edit")
     public String showUserUpdateForm(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.show(id));
+        model.addAttribute("user", userService.getUserBy(id));
         return "users/edit";
     }
 
