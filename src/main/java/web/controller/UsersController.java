@@ -20,13 +20,13 @@ public class UsersController {
 
     @GetMapping
     public String showAllUsers(Model model) {
-        model.addAttribute("users", userService.users());
+        model.addAttribute("users", userService.getAllUsers());
         return "users/all_users";
     }
 
     @GetMapping("/{id}")
     public String showEachUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserBy(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "users/each";
     }
 
@@ -43,7 +43,7 @@ public class UsersController {
 
     @GetMapping("/{id}/edit")
     public String showUserUpdateForm(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.getUserBy(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "users/edit";
     }
 
